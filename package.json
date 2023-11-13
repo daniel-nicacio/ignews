@@ -8,6 +8,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^2.1.11",
+    "axios": "^1.6.1",
+    "faunadb": "^4.8.0",
     "next": "12.0.10",
     "next-auth": "^4.23.2",
     "react": "17.0.2",

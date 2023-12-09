@@ -16,7 +16,7 @@ type User = {
 
 const subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
-    const session = await getSession({ req });
+    const { session }: any = await getSession({ req });
 
     const user = await fauna.query<User>(
       query.Get(

@@ -1,10 +1,8 @@
 import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 
-import { getServerSession } from "next-auth/next";
 import { RichText } from "prismic-dom";
-
-import { authOptions } from "../api/auth/[...nextauth]";
 
 import { client } from "../../services/prismic";
 
@@ -40,12 +38,21 @@ export default function Post({ post }: PostProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
-  const { slug } = context.params;
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  params,
+}) => {
+  const session: any = await getSession({ req });
+  const { slug } = params;
 
-  // if(!session) {
-  // }
+  if (!session?.activeSubscription) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
   const response = await client.getByUID("post", String(slug), {});
 

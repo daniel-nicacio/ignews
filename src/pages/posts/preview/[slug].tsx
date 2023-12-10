@@ -1,7 +1,6 @@
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 
 import { useSession } from "next-auth/react";
-import { Session } from "next-auth";
 
 import Link from "next/link";
 import Head from "next/head";
@@ -59,8 +58,15 @@ export default function PostPreview({ post }: PostPreviewProps) {
   );
 }
 
-export const getStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = () => {
   return {
+    // paths: [
+    //   {
+    //     params: {
+    //       slug: "creating-a-monorepo-with-lerna--yarn-workspaces",
+    //     },
+    //   },
+    // ],
     paths: [],
     fallback: "blocking",
   };
